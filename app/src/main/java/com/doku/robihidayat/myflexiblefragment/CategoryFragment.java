@@ -3,6 +3,8 @@ package com.doku.robihidayat.myflexiblefragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +35,19 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-    if (v.getId() == R.id.btn_detail_category){
-
-    }
+        if (v.getId() == R.id.btn_detail_category){
+            DetailCategoryFragment mDetailCategoryFragment = new DetailCategoryFragment();
+            Bundle mBundle = new Bundle();
+            mBundle.putString(DetailCategoryFragment.EXTRA_NAME, "Lifestyle");
+            String description = "Kategori ini akan berisi produk-produk lifestyle";
+            mDetailCategoryFragment.setArguments(mBundle);
+            mDetailCategoryFragment.setDescription(description);
+            FragmentManager mFragmentManager = getFragmentManager();
+            FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.frame_container, mDetailCategoryFragment,
+                    DetailCategoryFragment.class.getSimpleName());
+            mFragmentTransaction.addToBackStack(null);
+            mFragmentTransaction.commit();
+        }
     }
 }
